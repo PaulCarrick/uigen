@@ -56,16 +56,29 @@ UIGen is an AI-powered React component generator. Users describe components in a
 | `src/lib/provider.ts` | `getLanguageModel()` — returns Anthropic Claude or `MockLanguageModel` |
 | `src/lib/prompts/generation.tsx` | System prompt injected into every chat request |
 | `src/lib/auth.ts` | JWT session management (7-day expiry, httpOnly cookies) |
+| `src/lib/anon-work-tracker.ts` | Saves anonymous sessions to `sessionStorage`; on sign-in, `AuthDialog` offers to migrate that work into the new project |
 | `src/actions/` | Server actions for auth (`signUp`, `signIn`, `signOut`, `getUser`) and project CRUD |
 | `src/middleware.ts` | Protects `/api/projects` and `/api/filesystem` routes |
+| `src/app/main-content.tsx` | Root client component — wraps `FileSystemProvider` + `ChatProvider` and renders the three-panel layout (chat / preview / code editor) |
+
+### Routing
+
+- `/` — anonymous home page; renders `MainContent` with no user/project props
+- `/[projectId]` — authenticated project page; redirects to `/` if unauthenticated or project not found
 
 ### Database
 
-Prisma with SQLite (`prisma/dev.db`). Two models: `User` (email + hashed password) and `Project` (name, messages as JSON string, VirtualFileSystem data as JSON, belongs to User). Anonymous users work locally with no persistence.
+Prisma with SQLite (`prisma/dev.db`). The schema is defined in `prisma/schema.prisma` — reference it whenever you need to understand the data stored in the database. Two models: `User` (email + hashed password) and `Project` (name, messages as JSON string, VirtualFileSystem data as JSON, belongs to User). Anonymous users work locally with no persistence.
 
 ### Testing
 
 Tests live in `__tests__` folders co-located with source. Vitest with jsdom + React Testing Library. Path alias `@/*` maps to `src/*`.
+
+### Code style
+
+Use comments sparingly. Only comment complex code.
+Indent code using 2 spaces per level.
+Do not use abbreviations.
 
 ### Important runtime detail
 
