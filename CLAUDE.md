@@ -80,6 +80,10 @@ Use comments sparingly. Only comment complex code.
 Indent code using 2 spaces per level.
 Do not use abbreviations.
 
+### GitHub
+
+Always use the account `PaulCarrick` for GitHub operations, not `Paul-Carrick_MNIT`.
+
 ### Important runtime detail
 
 `package.json` scripts inject `NODE_OPTIONS='--require ./node-compat.cjs'` — this wrapper is required for Babel/Prisma compatibility and must not be removed.
